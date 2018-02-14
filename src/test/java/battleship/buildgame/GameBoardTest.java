@@ -33,6 +33,6 @@ public class GameBoardTest {
 //
 //        gameBoard.setLocationOfBattleship(new int[] {0,2,3});
 //
-//        assertFalse(new int[]{0,2,3}, gameBoard.getLocationOfBattleship());
+//        assertTrue(gameBoard.isSequential(gameBoard.getLocationOfBattleship()));
 //    }
 }
