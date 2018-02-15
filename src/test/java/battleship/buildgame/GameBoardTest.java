@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class GameBoardTest {
 
     @Test
-    public void gameBoardContainsThreeHits() {
+    public void gameBoardContainsABattleship() {
 
         GameBoard gameBoard = new GameBoard();
 
@@ -19,7 +19,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void gameBoardContainsThreeOtherHits() {
+    public void gameBoardContainsAnotherBattleship() {
 
         GameBoard gameBoard = new GameBoard();
 
@@ -29,7 +29,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void hitsAreNotNonConsecutiveNumbers() {
+    public void gameboardContainsABattleshipNotInConsecutiveNumbers() {
 
         GameBoard gameBoard = new GameBoard();
 
@@ -39,7 +39,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void hitsAreConsecutiveNumbers() {
+    public void gameboardContainsABattleshipInConsecutiveNumbers() {
 
         GameBoard gameBoard = new GameBoard();
 
