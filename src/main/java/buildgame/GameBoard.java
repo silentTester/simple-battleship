@@ -1,5 +1,7 @@
 package buildgame;
 
+import java.util.Arrays;
+
 public class GameBoard {
 
     private int[] locationOfBattleship;
@@ -20,6 +22,7 @@ public class GameBoard {
         int index = 0;
 
         while (index + 1 < locationOfBattleship.length) {
+            Arrays.sort(locationOfBattleship);
             if (locationOfBattleship[index] + 1 != locationOfBattleship[index + 1]) {
                 return false;
             }

@@ -19,11 +19,11 @@ public class GameBoardTest {
     }
 
     @Test
-    public void gameBoardContainsAnotherBattleship() {
+    public void gameBoardContainsAnotherBattleshipUnSorted() {
 
         GameBoard gameBoard = new GameBoard();
 
-        gameBoard.setBattleshipLocation(new int[]{0, 1, 2});
+        gameBoard.setBattleshipLocation(new int[]{1, 0, 2});
 
         assertArrayEquals(new int[]{0, 1, 2}, gameBoard.getBattleshipLocation());
         assertEquals(3, gameBoard.getBattleshipLocation().length);
