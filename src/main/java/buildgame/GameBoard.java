@@ -1,4 +1,4 @@
-package battleship.buildgame;
+package buildgame;
 
 public class GameBoard {
 
@@ -23,5 +23,4 @@ public class GameBoard {
         }
         return true;
     }
-
 }
