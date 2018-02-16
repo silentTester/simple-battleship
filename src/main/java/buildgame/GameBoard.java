@@ -4,15 +4,19 @@ public class GameBoard {
 
     private int[] locationOfBattleship;
 
-    public void setLocationOfBattleship(int[] shipLocation) {
-        locationOfBattleship = shipLocation;
+    public void setBattleshipLocation(int[] shipLocation) throws RuntimeException {
+
+        if (isBattleshipInSequence(shipLocation))
+            locationOfBattleship = shipLocation;
+        else
+            throw new RuntimeException("error in setting battleship location");
     }
 
-    public int[] getLocationOfBattleship() {
+    public int[] getBattleshipLocation() {
         return locationOfBattleship;
     }
 
-    public boolean isSequential(int[] locationOfBattleship) {
+    public boolean isBattleshipInSequence(int[] locationOfBattleship) {
         int index = 0;
 
         while (index + 1 < locationOfBattleship.length) {
