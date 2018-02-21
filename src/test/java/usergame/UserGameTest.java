@@ -30,7 +30,7 @@ public class UserGameTest {
 
         List<String> userInput = userGame.checkYourself("11,0,13");
 
-        assertEquals("Killed 2 Missed 1", userGame.firedMissiles(userInput, gameBoard));
+        assertEquals("Hit 2 Missed 1", userGame.firedMissiles(userInput, gameBoard));
     }
 
     @Test
@@ -42,8 +42,7 @@ public class UserGameTest {
 
         List<String> userInput = userGame.checkYourself("11,10,13");
 
-        assertEquals("Killed 0 Missed 3", userGame.firedMissiles(userInput, gameBoard));
+        assertEquals("Hit 0 Missed 3", userGame.firedMissiles(userInput, gameBoard));
     }
-
 
 }

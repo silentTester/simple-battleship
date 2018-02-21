@@ -36,7 +36,7 @@ public class UserGame {
         if (numOfHits == gameBoard.getBattleshipLocationCells().length) {
             result = "Killed all";
         } else
-            result = "Killed " + numOfHits + " Missed " + numOfMiss;
+            result = "Hit " + numOfHits + " Missed " + numOfMiss;
 
         return result;
     }
