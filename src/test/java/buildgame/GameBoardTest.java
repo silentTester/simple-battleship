@@ -13,11 +13,11 @@ public class GameBoardTest {
 
         GameBoard gameBoard = new GameBoard();
 
-        gameBoard.setBattleshipLocation(new int[]{1, 2, 3});
+        gameBoard.setBattleshipLocationCells(new int[]{1, 2, 3});
 
-        assertArrayEquals(new int[]{1, 2, 3}, gameBoard.getBattleshipLocation());
-        assertEquals(3, gameBoard.getBattleshipLocation().length);
-        assertTrue(gameBoard.isBattleshipInSequence(gameBoard.getBattleshipLocation()));
+        assertArrayEquals(new int[]{1, 2, 3}, gameBoard.getBattleshipLocationCells());
+        assertEquals(3, gameBoard.getBattleshipLocationCells().length);
+        assertTrue(gameBoard.isBattleshipInSequence(gameBoard.getBattleshipLocationCells()));
     }
 
     @Test
@@ -25,11 +25,11 @@ public class GameBoardTest {
 
         GameBoard gameBoard = new GameBoard();
 
-        gameBoard.setBattleshipLocation(new int[]{1, 0, 2});
+        gameBoard.setBattleshipLocationCells(new int[]{1, 0, 2});
 
-        assertArrayEquals(new int[]{0, 1, 2}, gameBoard.getBattleshipLocation());
-        assertEquals(3, gameBoard.getBattleshipLocation().length);
-        assertTrue(gameBoard.isBattleshipInSequence(gameBoard.getBattleshipLocation()));
+        assertArrayEquals(new int[]{0, 1, 2}, gameBoard.getBattleshipLocationCells());
+        assertEquals(3, gameBoard.getBattleshipLocationCells().length);
+        assertTrue(gameBoard.isBattleshipInSequence(gameBoard.getBattleshipLocationCells()));
     }
 
     @Rule
@@ -41,7 +41,7 @@ public class GameBoardTest {
 
         GameBoard gameBoard = new GameBoard();
 
-        gameBoard.setBattleshipLocation(new int[]{0, 1, 3});
+        gameBoard.setBattleshipLocationCells(new int[]{0, 1, 3});
     }
 
     @Rule
@@ -53,7 +53,7 @@ public class GameBoardTest {
 
         GameBoard gameBoard = new GameBoard();
 
-        gameBoard.setBattleshipLocation(new int[]{0, 1, 1});
+        gameBoard.setBattleshipLocationCells(new int[]{0, 1, 1});
     }
 
 }

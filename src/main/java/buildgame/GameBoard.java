@@ -6,7 +6,7 @@ public class GameBoard {
 
     private int[] locationOfBattleship;
 
-    public void setBattleshipLocation(int[] shipLocation) throws ExceptionBattleshipDuplicateLocation, ExceptionBattleshipNotInConsecutiveOrder {
+    public void setBattleshipLocationCells(int[] shipLocation) throws ExceptionBattleshipDuplicateLocation, ExceptionBattleshipNotInConsecutiveOrder {
 
         if (isBattleshipInSequence(shipLocation)) {
             locationOfBattleship = shipLocation;
@@ -16,7 +16,7 @@ public class GameBoard {
             throw new ExceptionBattleshipNotInConsecutiveOrder("Not in order error in setting battleship location");
     }
 
-    public int[] getBattleshipLocation() {
+    public int[] getBattleshipLocationCells() {
         return locationOfBattleship;
     }
 
