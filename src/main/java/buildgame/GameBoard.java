@@ -6,14 +6,14 @@ public class GameBoard {
 
     private int[] locationOfBattleship;
 
-    public void setBattleshipLocationCells(int[] shipLocation) throws ExceptionBattleshipDuplicateLocation, ExceptionBattleshipNotInConsecutiveOrder {
+    public void setBattleshipLocationCells(int[] shipLocation) throws BattleshipDuplicateLocationException, BattleshipNotInConsecutiveOrderException {
 
         if (isBattleshipInSequence(shipLocation)) {
             locationOfBattleship = shipLocation;
         } else if (isBattleshipLocationADuplicate(shipLocation)) {
-            throw new ExceptionBattleshipDuplicateLocation("Duplicate error in setting battleship location");
+            throw new BattleshipDuplicateLocationException("Duplicate error in setting battleship location");
         } else
-            throw new ExceptionBattleshipNotInConsecutiveOrder("Not in order error in setting battleship location");
+            throw new BattleshipNotInConsecutiveOrderException("Not in order error in setting battleship location");
     }
 
     public int[] getBattleshipLocationCells() {
@@ -21,27 +21,23 @@ public class GameBoard {
     }
 
     public boolean isBattleshipInSequence(int[] locationOfBattleship) {
-        int index = 0;
 
-        while (index + 1 < locationOfBattleship.length) {
+        for (int index = 0; index < locationOfBattleship.length - 1; index++) {
             Arrays.sort(locationOfBattleship);
             if (locationOfBattleship[index] + 1 != locationOfBattleship[index + 1]) {
                 return false;
             }
-            index++;
         }
         return true;
     }
 
     public boolean isBattleshipLocationADuplicate(int[] locationOfBattleship) {
-        int index = 0;
 
-        while (index + 1 < locationOfBattleship.length) {
+        for (int index = 0; index < locationOfBattleship.length - 1; index++) {
             Arrays.sort(locationOfBattleship);
             if (locationOfBattleship[index] == locationOfBattleship[index + 1]) {
                 return true;
             }
-            index++;
         }
         return false;
     }

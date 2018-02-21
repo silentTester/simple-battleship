@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class GameBoardTest {
 
     @Test
-    public void gameBoardContainsABattleshipInConsecutiveOrder() throws ExceptionBattleshipDuplicateLocation, ExceptionBattleshipNotInConsecutiveOrder {
+    public void gameBoardContainsABattleshipInConsecutiveOrder() throws BattleshipDuplicateLocationException, BattleshipNotInConsecutiveOrderException {
 
         GameBoard gameBoard = new GameBoard();
 
@@ -21,7 +21,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void gameBoardContainsAnotherBattleshipUnSorted() throws ExceptionBattleshipDuplicateLocation, ExceptionBattleshipNotInConsecutiveOrder {
+    public void gameBoardContainsAnotherBattleshipUnSorted() throws BattleshipDuplicateLocationException, BattleshipNotInConsecutiveOrderException {
 
         GameBoard gameBoard = new GameBoard();
 
@@ -36,7 +36,7 @@ public class GameBoardTest {
     public ExpectedException expectedExceptionNotInOrder = ExpectedException.none();
     @Test
     public void gameBoardFailsAsBattleshipIsNotInConsecutiveOrder() throws Exception {
-        expectedExceptionNotInOrder.expect(ExceptionBattleshipNotInConsecutiveOrder.class);
+        expectedExceptionNotInOrder.expect(BattleshipNotInConsecutiveOrderException.class);
         expectedExceptionNotInOrder.expectMessage("Not in order error in setting battleship location");
 
         GameBoard gameBoard = new GameBoard();
@@ -48,7 +48,7 @@ public class GameBoardTest {
     public ExpectedException expectedExceptionDuplicate = ExpectedException.none();
     @Test
     public void gameBoardFailsAsBattleshipContainsDuplicateLocation() throws Exception {
-        expectedExceptionDuplicate.expect(ExceptionBattleshipDuplicateLocation.class);
+        expectedExceptionDuplicate.expect(BattleshipDuplicateLocationException.class);
         expectedExceptionDuplicate.expectMessage("Duplicate error in setting battleship location");
 
         GameBoard gameBoard = new GameBoard();

@@ -1,21 +1,49 @@
 package usergame;
 
+import buildgame.GameBoard;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class UserGameTest {
 
     @Test
-    public void userGameInputsGuessesToHitBattleship() {
+    public void userGameInputsKilledABattleship() throws Exception {
+        GameBoard gameBoard = new GameBoard();
         UserGame userGame = new UserGame();
 
-        System.out.println(userGame.checkYourself("1, 2, 3"));
+        gameBoard.setBattleshipLocationCells(new int[]{1, 2, 3});
 
-        assertEquals(3, userGame.checkYourself("1,2,3").size());
-        assertEquals("1", userGame.checkYourself("1,2,3").get(0));
-        assertEquals("3", userGame.checkYourself("1,2,3").get(2));
+        List<String> userInput = userGame.checkYourself("1,2,3");
+
+        assertEquals("Killed all", userGame.firedMissiles(userInput, gameBoard));
     }
-    
+
+    @Test
+    public void userGameInputsHitAndMissedABattleship() throws Exception {
+        GameBoard gameBoard = new GameBoard();
+        UserGame userGame = new UserGame();
+
+        gameBoard.setBattleshipLocationCells(new int[]{11, 12, 13});
+
+        List<String> userInput = userGame.checkYourself("11,0,13");
+
+        assertEquals("Killed 2 Missed 1", userGame.firedMissiles(userInput, gameBoard));
+    }
+
+    @Test
+    public void userGameInputsTotallyMissedABattleship() throws Exception {
+        GameBoard gameBoard = new GameBoard();
+        UserGame userGame = new UserGame();
+
+        gameBoard.setBattleshipLocationCells(new int[]{0, 1, 2});
+
+        List<String> userInput = userGame.checkYourself("11,10,13");
+
+        assertEquals("Killed 0 Missed 3", userGame.firedMissiles(userInput, gameBoard));
+    }
+
+
 }
