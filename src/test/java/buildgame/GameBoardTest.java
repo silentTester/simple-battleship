@@ -1,13 +1,17 @@
 package buildgame;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
 public class GameBoardTest {
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void gameBoardContainsABattleshipInConsecutiveOrder() {
+    public void gameBoardContainsABattleshipInConsecutiveOrder() throws ExceptionBattleshipDuplicateLocation, ExceptionBattleshipNotInConsecutiveOrder {
 
         GameBoard gameBoard = new GameBoard();
 
@@ -19,7 +23,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void gameBoardContainsAnotherBattleshipUnSorted() {
+    public void gameBoardContainsAnotherBattleshipUnSorted() throws ExceptionBattleshipDuplicateLocation, ExceptionBattleshipNotInConsecutiveOrder {
 
         GameBoard gameBoard = new GameBoard();
 
@@ -31,27 +35,20 @@ public class GameBoardTest {
     }
 
     @Test
-    public void gameBoardFailsAsBattleshipIsNotInConsecutiveOrder() throws RuntimeException {
-
+    public void gameBoardFailsAsBattleshipIsNotInConsecutiveOrder() throws Exception {
+        expectedException.expect(ExceptionBattleshipNotInConsecutiveOrder.class);
+        expectedException.expectMessage("Not in order error in setting battleship location");
         GameBoard gameBoard = new GameBoard();
-        try {
-            gameBoard.setBattleshipLocation(new int[]{0, 1, 3});
-            fail();
-        } catch (RuntimeException e) {
-            assertEquals("error in setting battleship location", e.getMessage());
-        }
+        gameBoard.setBattleshipLocation(new int[]{0, 1, 3});
     }
 
     @Test
-    public void gameBoardFailsAsBattleshipContainsDuplicateLocation() throws RuntimeException {
+    public void gameBoardFailsAsBattleshipContainsDuplicateLocation() throws Exception {
+        expectedException.expect(ExceptionBattleshipDuplicateLocation.class);
+        expectedException.expectMessage("Duplicate error in setting battleship location");
 
         GameBoard gameBoard = new GameBoard();
-        try {
-            gameBoard.setBattleshipLocation(new int[]{0, 1, 1});
-            fail();
-        } catch (RuntimeException e) {
-            assertEquals("error in setting battleship location", e.getMessage());
-        }
+        gameBoard.setBattleshipLocation(new int[]{0, 1, 1});
     }
 
 }
