@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserGame {
+    int numOfHits = 0;
+    int numOfGuesses = 0;
+    int numOfMisses = 0;
 
     public List<String> checkYourself(String userInput) {
         List<String> listUserInput = new ArrayList<String>();
-        String filtered = userInput.replaceAll("[^0-9,]","");
+        String filtered = userInput.replaceAll("[^0-9,]", "");
 
         for (String eachUserInput : filtered.split(",")) {
             listUserInput.add(eachUserInput);
@@ -40,5 +43,35 @@ public class UserGame {
 
         return result;
     }
-    
+
+    public int guessesTarget(int input) {
+
+        return input;
+    }
+
+    public String firesAMissile(int userInput, GameBoard gameBoard) {
+        String result = "Miss";
+
+        for (int battleshipLocaton : gameBoard.getBattleshipLocation()) {
+            if (userInput == battleshipLocaton) {
+                numOfHits++;
+                result = "Hit";
+                break;
+            } else {
+                result = "Miss";
+            }
+        }
+
+        if (numOfHits == gameBoard.getBattleshipLocation().length) {
+            result = "Killed all";
+        }
+        numOfGuesses++;
+
+        if (result.equals("Miss")) {
+            numOfMisses++;
+        }
+
+        return result;
+    }
+
 }
