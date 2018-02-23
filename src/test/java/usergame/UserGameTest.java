@@ -3,6 +3,7 @@ package usergame;
 import buildgame.GameBoard;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -43,6 +44,19 @@ public class UserGameTest {
         List<String> userInput = userGame.checkYourself("11,10,13");
 
         assertEquals("Hit 0 Missed 3", userGame.firedMissiles(userInput, gameBoard));
+    }
+
+    @Test
+    public void userGameInputsAndHitsABattleshipSetRandomly() throws Exception {
+        GameBoard gameBoard = new GameBoard();
+        UserGame userGame = new UserGame();
+        int[] randomLocation = gameBoard.getARandomLocation();
+
+        gameBoard.setBattleshipLocationCells(randomLocation);
+
+        List<String> userInput = userGame.checkYourself(Arrays.toString(gameBoard.getBattleshipLocation()));
+
+        assertEquals("Killed all", userGame.firedMissiles(userInput, gameBoard));
     }
 
 }

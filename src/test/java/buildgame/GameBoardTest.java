@@ -44,7 +44,6 @@ public class GameBoardTest {
         assertArrayEquals(randomLocation, gameBoard.getBattleshipLocation());
     }
 
-
     @Rule
     public ExpectedException expectedExceptionNotInOrder = ExpectedException.none();
 
