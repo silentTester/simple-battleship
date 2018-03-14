@@ -8,7 +8,7 @@ public class GameBoard2 {
     private final String COLUMNS = "ABCDEFG";
     private final int ROW_MAX_SIZE = 6;
     private final int COL_MAX_SIZE = 6;
-    private String[][] locationOfBattleship = new String[ROW_MAX_SIZE][COL_MAX_SIZE];
+    private String[][] gameBoard = new String[ROW_MAX_SIZE][COL_MAX_SIZE];
 
     public void setBattleshipLocationCells2D(String shipLocation) throws Exception {
         String[] inputShip = shipLocation.trim().split(",");
@@ -25,8 +25,7 @@ public class GameBoard2 {
                 String row = coOrdinates.get(index).substring(0, 1);
                 int rowPos = COLUMNS.indexOf(row);
                 int colPos = Integer.parseInt(coOrdinates.get(index).substring(1));
-                locationOfBattleship[rowPos][colPos] = coOrdinates.get(index);
-//                System.out.println(rowPos + "," + colPos + ":" + locationOfBattleship[rowPos][colPos]);
+                gameBoard[rowPos][colPos] = coOrdinates.get(index);
             }
         } else
             throw new Exception("Error setting boat - either out of sequence or location is unavailable");
@@ -57,10 +56,10 @@ public class GameBoard2 {
 
     private boolean isShipLocationAvailable(ArrayList<String> inputShip) {
         for (String str : inputShip) {
-            for (int index = 0; index < locationOfBattleship.length; index++) {
-                for (int j = 0; j < locationOfBattleship.length; j++) {
-                    if (str.equals(locationOfBattleship[index][j])) {
-                        System.out.println(str + " is occupied " + locationOfBattleship[index][j]);
+            for (int index = 0; index < gameBoard.length; index++) {
+                for (int j = 0; j < gameBoard.length; j++) {
+                    if (str.equals(gameBoard[index][j])) {
+                        System.out.println(str + " is occupied " + gameBoard[index][j]);
                         return false;
                     }
                 }
@@ -70,14 +69,13 @@ public class GameBoard2 {
     }
 
     public String[][] getAllBattleships() {
-        return locationOfBattleship;
+        return gameBoard;
     }
 
     public boolean isBattleshipLocatedInCell(String inputLocation) {
-        for (int index = 0; index < locationOfBattleship.length; index++) {
-            for (int j = 0; j < locationOfBattleship.length; j++) {
-                if (inputLocation.equals(locationOfBattleship[index][j])) {
-                    System.out.println(inputLocation + " is occupied " + locationOfBattleship[index][j]);
+        for (int row = 0; row < gameBoard.length; row++) {
+            for (int col = 0; col < gameBoard.length; col++) {
+                if (inputLocation.equals(gameBoard[row][col])) {
                     return true;
 
                 }
@@ -87,15 +85,29 @@ public class GameBoard2 {
     }
 
     public String[][] printGameBoard() {
-        for (String[] a : locationOfBattleship) {
-            for (String str : a) {
-                System.out.format("|%-5s", str);
+        for (String[] cells : gameBoard) {
+            for (String eachCell : cells) {
+                System.out.format("|%-5s", eachCell);
             }
             System.out.println();
         }
         System.out.println();
-        return locationOfBattleship;
+
+        return gameBoard;
     }
+
+    public int countNumberOfCellsOccuppied() {
+        int nosCells = 0;
+
+        for (String[] cells : gameBoard) {
+            for (String eachCell : cells) {
+                if (eachCell != null) {
+                    nosCells++;
+                }
+            }
+        }
+
+        return nosCells;
+    }
+
 }
-
-
