@@ -1,7 +1,6 @@
 package buildgame;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class GameBoard2 {
@@ -10,7 +9,7 @@ public class GameBoard2 {
     private final int COL_MAX_SIZE = 6;
     private String[][] locationOfBattleship = new String[ROW_MAX_SIZE][COL_MAX_SIZE];
 
-    public void setBattleshipLocationCells2D(String shipLocation) {
+    public void setBattleshipLocationCells2D(String shipLocation) throws Exception {
         String[] inputShip = shipLocation.trim().split(",");
         ArrayList<String> coOrdinates = new ArrayList<String>();
 
@@ -18,7 +17,7 @@ public class GameBoard2 {
             coOrdinates.add(str.trim());
         }
 
-        if (isShipInSequence(inputShip) && (isShipLocationAvailable(inputShip))) {
+        if (isShipInSequence(coOrdinates) && (isShipLocationAvailable(coOrdinates))) {
             for (int index = 0; index < coOrdinates.size(); index++) {
                 String row = coOrdinates.get(index).substring(0, 1);
                 int rowPos = "ABCDEFG".indexOf(row);
@@ -28,19 +27,19 @@ public class GameBoard2 {
                 System.out.println(rowPos + "," + colPos + ":" + locationOfBattleship[rowPos][colPos]);
             }
         } else
-            System.out.println("ERROR SETTING BOAT");
+            throw new Exception("Error setting boat - either out of sequence or location is unavailable");
     }
 
-    private boolean isShipInSequence(String[] inputShip) {
+    private boolean isShipInSequence(ArrayList<String> inputShip) {
         ArrayList<Integer> cols = new ArrayList<Integer>();
         ArrayList<Integer> rows = new ArrayList<Integer>();
 
-        Arrays.sort(inputShip);
+        Collections.sort(inputShip);
 
-        for (int index = 0; index < inputShip.length; index++) {
-            String row = inputShip[index].trim().substring(0, 1);
+        for (int index = 0; index < inputShip.size(); index++) {
+            String row = inputShip.get(index).substring(0, 1);
             int rowPos = "ABCDEFG".indexOf(row);
-            int colPos = Integer.parseInt(inputShip[index].trim().substring(1));
+            int colPos = Integer.parseInt(inputShip.get(index).substring(1));
             rows.add(rowPos);
             cols.add(colPos);
         }
@@ -56,12 +55,12 @@ public class GameBoard2 {
         return true;
     }
 
-    private boolean isShipLocationAvailable(String[] inputShip) {
+    private boolean isShipLocationAvailable(ArrayList<String> inputShip) {
         for (String str : inputShip) {
             for (int index = 0; index < locationOfBattleship.length; index++) {
                 for (int j = 0; j < locationOfBattleship.length; j++) {
                     if (str.equals(locationOfBattleship[index][j])) {
-                        System.out.println(str + " " + locationOfBattleship[index][j]);
+                        System.out.println(str + " is occupied " + locationOfBattleship[index][j]);
                         return false;
                     }
                 }

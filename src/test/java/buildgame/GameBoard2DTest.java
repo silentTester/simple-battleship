@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class GameBoard2DTest {
 
     @Test
-    public void gameBoardContainsABattleshipInConsecutiveOrder() {
+    public void gameBoardContainsABattleshipInConsecutiveOrder() throws Exception{
 
         GameBoard2 gameBoard = new GameBoard2();
 
