@@ -12,7 +12,7 @@ public class GameBoard2DTest {
 
         GameBoard2 gameBoard = new GameBoard2();
 
-        gameBoard.setBattleshipLocationCells2D("A1, B1, C1");
+        gameBoard.setBattleshipLocationCells2D("A1, A2, A3");
 
         System.out.println(Arrays.deepToString(gameBoard.getBattleshipLocation()));
 

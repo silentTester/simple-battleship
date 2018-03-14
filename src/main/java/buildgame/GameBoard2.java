@@ -17,36 +17,36 @@ public class GameBoard2 {
             coOrdinates.add(str.trim());
         }
 
-        if (!isShipInSequence(inputShip)) {
-            System.out.println("Error!");
-        };
+        if (isShipInSequence(inputShip)) {
+            for (int index = 0; index < coOrdinates.size(); index++) {
+                String row = coOrdinates.get(index).substring(0, 1);
+                int rowPos = "ABCDEFG".indexOf(row);
+                int colPos = Integer.parseInt(coOrdinates.get(index).substring(1));
+                locationOfBattleship[rowPos][colPos] = coOrdinates.get(index);
 
-        for (int index = 0; index < coOrdinates.size(); index++) {
-            String row = coOrdinates.get(index).substring(0, 1);
-            int rowPos = "ABCDEFG".indexOf(row);
-            int colPos = Integer.parseInt(coOrdinates.get(index).substring(1));
-            locationOfBattleship[rowPos][colPos] = coOrdinates.get(index);
-
-            System.out.println(rowPos + "," + colPos + ":" + locationOfBattleship[rowPos][colPos]);
+                System.out.println(rowPos + "," + colPos + ":" + locationOfBattleship[rowPos][colPos]);
+            }
         }
+        else
+            System.out.println("ERROR SETTING BOAT");
     }
 
     private boolean isShipInSequence(String[] inputShip) {
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
-
-        Collections.sort(numbers);
+        ArrayList<Integer> cols = new ArrayList<Integer>();
+        ArrayList<Integer> rows = new ArrayList<Integer>();
 
         for (int index = 0; index < inputShip.length; index++) {
             String row = inputShip[index].trim().substring(0, 1);
             int rowPos = "ABCDEFG".indexOf(row);
             int colPos = Integer.parseInt(inputShip[index].trim().substring(1));
-            int position = rowPos + colPos;
-            numbers.add(position);
+            rows.add(rowPos);
+            cols.add(colPos);
         }
 
-        for (int index = 0; index < numbers.size() - 1; index++) {
-            if (numbers.get(index) + 1 != numbers.get(index + 1)) {
-                return false;
+        for (int index = 0; index < rows.size() - 1; index++) {
+            if (rows.get(index) != rows.get(index + 1)) {
+                if (cols.get(index) + 1 == cols.get(index + 1))
+                    return false;
             }
         }
 
