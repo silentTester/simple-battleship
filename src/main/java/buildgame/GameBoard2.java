@@ -2,6 +2,7 @@ package buildgame;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class GameBoard2 {
 
@@ -10,7 +11,7 @@ public class GameBoard2 {
     private final int COL_MAX_SIZE = 6;
     private String[][] gameBoard = new String[ROW_MAX_SIZE][COL_MAX_SIZE];
 
-    public void setBattleshipLocationCells2D(String shipLocation) throws Exception {
+    public void setBattleshipOnTheGameboard(String shipLocation) throws Exception {
         String[] inputShip = shipLocation.trim().split(",");
         ArrayList<String> coOrdinates = new ArrayList<String>();
 
@@ -20,7 +21,7 @@ public class GameBoard2 {
 
         Collections.sort(coOrdinates);
 
-        if (isShipInSequence(coOrdinates) && (isShipLocationAvailable(coOrdinates))) {
+        if (isBattleshipInSequence(coOrdinates) && (isBattleshipCellUnoccupied(coOrdinates))) {
             for (int index = 0; index < coOrdinates.size(); index++) {
                 String row = coOrdinates.get(index).substring(0, 1);
                 int rowPos = COLUMNS.indexOf(row);
@@ -31,7 +32,32 @@ public class GameBoard2 {
             throw new Exception("Error setting boat - either out of sequence or location is unavailable");
     }
 
-    private boolean isShipInSequence(ArrayList<String> inputShip) {
+    public String[][] getAllCellsOnTheGameBoard() {
+        return gameBoard;
+    }
+
+    public String generateARandomCellForBattleship() {
+        StringBuilder coOrdinates = new StringBuilder();
+
+        Random rnd = new Random();
+        int randomRowPos = rnd.nextInt(ROW_MAX_SIZE);
+        int randomColPos = rnd.nextInt(COL_MAX_SIZE);
+        String cellStartPos = "";
+
+        for (int index = 0; index < 3; index++) {
+            if (randomRowPos >= 4) {
+                randomRowPos = randomRowPos - 2;
+            } else
+                randomRowPos++;
+
+            cellStartPos = ((char) (randomColPos + 'A' - 0)) + "" + randomRowPos;
+            coOrdinates.append(cellStartPos).append(",");
+        }
+
+        return coOrdinates.toString();
+    }
+
+    private boolean isBattleshipInSequence(ArrayList<String> inputShip) {
         ArrayList<Integer> cols = new ArrayList<Integer>();
         ArrayList<Integer> rows = new ArrayList<Integer>();
 
@@ -54,22 +80,18 @@ public class GameBoard2 {
         return true;
     }
 
-    private boolean isShipLocationAvailable(ArrayList<String> inputShip) {
+    private boolean isBattleshipCellUnoccupied(ArrayList<String> inputShip) {
         for (String str : inputShip) {
-            for (int index = 0; index < gameBoard.length; index++) {
-                for (int j = 0; j < gameBoard.length; j++) {
-                    if (str.equals(gameBoard[index][j])) {
-                        System.out.println(str + " is occupied " + gameBoard[index][j]);
+            for (int row = 0; row < gameBoard.length; row++) {
+                for (int col = 0; col < gameBoard.length; col++) {
+                    if (str.equals(gameBoard[row][col])) {
+                        System.out.println(str + " is occupied " + gameBoard[row][col]);
                         return false;
                     }
                 }
             }
         }
         return true;
-    }
-
-    public String[][] getAllBattleships() {
-        return gameBoard;
     }
 
     public boolean isBattleshipLocatedInCell(String inputLocation) {
@@ -96,7 +118,7 @@ public class GameBoard2 {
         return gameBoard;
     }
 
-    public int countNumberOfCellsOccuppied() {
+    public int countNumberOfCellsOccupied() {
         int nosCells = 0;
 
         for (String[] cells : gameBoard) {
@@ -108,6 +130,24 @@ public class GameBoard2 {
         }
 
         return nosCells;
+    }
+
+    public int countNumberOfBattleships() {
+        int nosCells = 0, nosShips = 0;
+
+        for (String[] cells : gameBoard) {
+            for (String eachCell : cells) {
+                if (eachCell != null) {
+                    nosCells++;
+                    if (nosCells == 3) {
+                        nosShips++;
+                        nosCells = 0;
+                    }
+                }
+            }
+        }
+
+        return nosShips;
     }
 
 }
