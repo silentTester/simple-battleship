@@ -40,8 +40,8 @@ public class GameBoard2 {
         StringBuilder coOrdinates = new StringBuilder();
 
         Random rnd = new Random();
-        int randomRowPos = rnd.nextInt(ROW_MAX_SIZE);
         int randomColPos = rnd.nextInt(COL_MAX_SIZE);
+        int randomRowPos = rnd.nextInt(ROW_MAX_SIZE);
         String cellStartPos = "";
 
         for (int index = 0; index < 3; index++) {
@@ -71,8 +71,10 @@ public class GameBoard2 {
 
         for (int index = 0; index < rows.size() - 1; index++) {
             if (rows.get(index) != rows.get(index + 1)) {
+                System.out.println(rows.get(index) + " " + rows.get(index + 1));
                 if (cols.get(index) + 1 == cols.get(index + 1))
                     return false;
+                System.out.println(cols.get(index) + " " + cols.get(index + 1));
             } else if (cols.get(index) + 1 != cols.get(index + 1))
                 return false;
         }
@@ -91,6 +93,7 @@ public class GameBoard2 {
                 }
             }
         }
+
         return true;
     }
 
@@ -103,19 +106,28 @@ public class GameBoard2 {
                 }
             }
         }
+
         return false;
     }
 
-    public String[][] printGameBoard() {
-        for (String[] cells : gameBoard) {
-            for (String eachCell : cells) {
-                System.out.format("|%-5s", eachCell);
-            }
-            System.out.println();
-        }
-        System.out.println();
+    public StringBuilder displayGameBoard() {
+        StringBuilder gameBoardOutput = new StringBuilder();
 
-        return gameBoard;
+        for (String[] cells : gameBoard) {
+            gameBoardOutput.append("{");
+            for (String eachCell : cells) {
+                if (eachCell != null) {
+                    gameBoardOutput.append(String.format("\"%s\", ", eachCell));
+                } else
+                    gameBoardOutput.append(String.format("%s, ", eachCell));
+            }
+            gameBoardOutput.setLength(gameBoardOutput.length() - 2);
+            gameBoardOutput.append("},\n");
+        }
+        gameBoardOutput.setLength(gameBoardOutput.length() - 2);
+        gameBoardOutput.append("\n");
+
+        return gameBoardOutput;
     }
 
     public int countNumberOfCellsOccupied() {

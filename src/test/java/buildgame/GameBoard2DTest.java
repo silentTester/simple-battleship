@@ -1,6 +1,8 @@
 package buildgame;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
@@ -24,7 +26,7 @@ public class GameBoard2DTest {
         gameBoard.setBattleshipOnTheGameboard("A1, A2, A3, A4, A5, A0");
         gameBoard.setBattleshipOnTheGameboard("B3, B4, B5");
 
-        gameBoard.printGameBoard();
+        System.out.println(gameBoard.displayGameBoard());
 
         assertArrayEquals(expectedGameboardWithBattleships, gameBoard.getAllCellsOnTheGameBoard());
         assertTrue(gameBoard.isBattleshipLocatedInCell("A5"));
@@ -52,8 +54,7 @@ public class GameBoard2DTest {
         gameBoard.setBattleshipOnTheGameboard("C2, D2, E2");
         gameBoard.setBattleshipOnTheGameboard("D1, E1, F1");
 
-        gameBoard.printGameBoard();
-
+        System.out.println(gameBoard.displayGameBoard());
 
         assertArrayEquals(expectedGameboardWithBattleships, gameBoard.getAllCellsOnTheGameBoard());
         assertTrue(gameBoard.isBattleshipLocatedInCell("A2"));
@@ -62,12 +63,39 @@ public class GameBoard2DTest {
         assertEquals(4, gameBoard.countNumberOfBattleships());
     }
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     @Test
-    public void gameBoardContainsABattleshipInARandomLocation() throws Exception {
+    public void gameBoardFailsAsBattleshipNotSetInSequenceOrLocationUnavailable()throws Exception {
+        expectedException.expect(Exception.class);
+        expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
+
         GameBoard2 gameBoard = new GameBoard2();
 
-        gameBoard.setBattleshipOnTheGameboard(gameBoard.generateARandomCellForBattleship());
-        gameBoard.printGameBoard();
+        gameBoard.setBattleshipOnTheGameboard("A1, B1, B2");
+    }
+
+    @Test
+    public void gameBoardFailsAsBattleshipNotSetInSeq ()throws Exception {
+
+        GameBoard2 gameBoard = new GameBoard2();
+
+        gameBoard.setBattleshipOnTheGameboard("A1, B1, B2");
+        System.out.println(gameBoard.displayGameBoard());
+    }
+
+
+    @Test
+    public void gameBoardContainsABattleshipInARandomLocation() throws Exception {
+
+        GameBoard2 gameBoard = new GameBoard2();
+
+        String randomCoOrdinates = gameBoard.generateARandomCellForBattleship();
+
+        gameBoard.setBattleshipOnTheGameboard(randomCoOrdinates);
+
+        System.out.println(gameBoard.displayGameBoard());
 
         assertEquals(6, gameBoard.getAllCellsOnTheGameBoard().length);
         assertEquals(3, gameBoard.countNumberOfCellsOccupied());
