@@ -69,14 +69,34 @@ public class GameBoard2 {
             cols.add(colPos);
         }
 
-        for (int index = 0; index < rows.size() - 1; index++) {
-            if (rows.get(index) != rows.get(index + 1)) {
-                System.out.println(rows.get(index) + " " + rows.get(index + 1));
-                if (cols.get(index) + 1 == cols.get(index + 1))
-                    return false;
-                System.out.println(cols.get(index) + " " + cols.get(index + 1));
-            } else if (cols.get(index) + 1 != cols.get(index + 1))
-                return false;
+        for (int index = 0; index < rows.size(); index++) {
+            //check rows - if different rows e.g. A1, B1
+            if (index < rows.size() - 1) {
+                if (rows.get(index) != rows.get(index + 1)) {
+                    //expect cols to be the same
+                    if (cols.get(index) != cols.get(index + 1)) {
+                        return false;
+                    }
+                    //check rows - if the same e.g. A1, A2
+                } else if (rows.get(index) == rows.get(index + 1)) {
+                    //expect cols to be different
+                    if (cols.get(index) == cols.get(index + 1)) {
+                        return false;
+                    }
+
+                }
+            } //TODO: check final cell against the first cell - should fail if 'B0, B1, B3'.
+            else {
+                if (rows.get(index) != rows.get(0)) {
+                    if (cols.get(index) != cols.get(0)) {
+                        return false;
+                    }
+                } else if (rows.get(index) == rows.get(0)) {
+                    if (cols.get(index) == cols.get(0)) {
+                        return false;
+                    }
+                }
+            }
         }
 
         return true;

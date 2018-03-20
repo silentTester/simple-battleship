@@ -63,29 +63,6 @@ public class GameBoard2DTest {
         assertEquals(4, gameBoard.countNumberOfBattleships());
     }
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Test
-    public void gameBoardFailsAsBattleshipNotSetInSequenceOrLocationUnavailable()throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
-
-        GameBoard2 gameBoard = new GameBoard2();
-
-        gameBoard.setBattleshipOnTheGameboard("A1, B1, B2");
-    }
-
-    @Test
-    public void gameBoardFailsAsBattleshipNotSetInSeq ()throws Exception {
-
-        GameBoard2 gameBoard = new GameBoard2();
-
-        gameBoard.setBattleshipOnTheGameboard("A1, B1, B2");
-        System.out.println(gameBoard.displayGameBoard());
-    }
-
-
     @Test
     public void gameBoardContainsABattleshipInARandomLocation() throws Exception {
 
@@ -100,6 +77,32 @@ public class GameBoard2DTest {
         assertEquals(6, gameBoard.getAllCellsOnTheGameBoard().length);
         assertEquals(3, gameBoard.countNumberOfCellsOccupied());
         assertEquals(1, gameBoard.countNumberOfBattleships());
+    }
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
+    @Test
+    public void gameBoardFailsAsBattleshipNotSetInSequenceOrLocationUnavailable()throws Exception {
+
+        expectedException.expect(Exception.class);
+        expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
+
+        GameBoard2 gameBoard = new GameBoard2();
+
+        gameBoard.setBattleshipOnTheGameboard("A1, B1, B2");
+    }
+
+    @Test
+    public void gameBoardFailsAsBattleshipNotSetInSeq ()throws Exception {
+
+        expectedException.expect(Exception.class);
+        expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
+
+        GameBoard2 gameBoard = new GameBoard2();
+
+        gameBoard.setBattleshipOnTheGameboard("B0, B1, B3");
+        System.out.println(gameBoard.displayGameBoard());
     }
 
 }
