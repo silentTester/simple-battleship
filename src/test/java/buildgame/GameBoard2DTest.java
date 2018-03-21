@@ -29,6 +29,7 @@ public class GameBoard2DTest {
 
         assertArrayEquals(expectedGameboardWithBattleships, gameBoard.getAllCellsOnTheGameBoard());
         assertTrue(gameBoard.isBattleshipLocatedInCell("A5"));
+        assertTrue(gameBoard.isBattleshipLocatedInCell("B5"));
         assertEquals(6, gameBoard.getAllCellsOnTheGameBoard().length);
         assertEquals(9, gameBoard.countNumberOfCellsOccupied());
         assertEquals(3, gameBoard.countNumberOfBattleships());

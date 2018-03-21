@@ -106,12 +106,12 @@ public class GameBoard2 {
         return true;
     }
 
-    private boolean isBattleshipCellUnoccupied(ArrayList<String> inputShip) {
-        for (String str : inputShip) {
+    private boolean isBattleshipCellUnoccupied(ArrayList<String> shipLocation) {
+        for (String shipInput : shipLocation) {
             for (int row = 0; row < gameBoard.length; row++) {
                 for (int col = 0; col < gameBoard.length; col++) {
-                    if (str.equals(gameBoard[row][col])) {
-                        System.out.println(str + " is occupied " + gameBoard[row][col]);
+                    if (shipInput.equals(gameBoard[row][col])) {
+                        System.out.println(shipInput + " is occupied " + gameBoard[row][col]);
                         return false;
                     }
                 }
@@ -122,9 +122,9 @@ public class GameBoard2 {
     }
 
     public boolean isBattleshipLocatedInCell(String inputLocation) {
-        for (int row = 0; row < gameBoard.length; row++) {
-            for (int col = 0; col < gameBoard.length; col++) {
-                if (inputLocation.equals(gameBoard[row][col])) {
+        for (int row = 0; row < getAllCellsOnTheGameBoard().length; row++) {
+            for (int col = 0; col < getAllCellsOnTheGameBoard().length; col++) {
+                if (inputLocation.equals(getAllCellsOnTheGameBoard()[row][col])) {
                     return true;
                 }
             }

@@ -1,75 +1,58 @@
 package usergame;
 
-import buildgame.GameBoard;
+import buildgame.GameBoard2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserGame {
     int numOfHits = 0;
     int numOfGuesses = 0;
     int numOfMisses = 0;
+    String result;
 
     public List<String> checkYourself(String userInput) {
         List<String> listUserInput = new ArrayList<String>();
-        String filtered = userInput.replaceAll("[^0-9,]", "");
+        String[] inputShipLocation = userInput.trim().split(",");
 
-        for (String eachUserInput : filtered.split(",")) {
-            listUserInput.add(eachUserInput);
+        for (String eachUserInput : inputShipLocation) {
+            listUserInput.add(eachUserInput.trim());
+            Collections.sort(listUserInput);
         }
 
         return listUserInput;
     }
 
-    public String firedMissiles(List<String> userInput, GameBoard gameBoard) {
-        int numOfHits = 0;
-        int numOfMiss = 0;
-        String result;
+    public String guessesTarget(String userInput) {
+        return userInput;
+    }
 
-        for (int battleshipLocaton : gameBoard.getBattleshipLocation()) {
-            String partOfShipLocation = String.valueOf(battleshipLocaton);
-
-            if (userInput.contains(partOfShipLocation)) {
-                numOfHits++;
-            } else {
-                numOfMiss++;
+    public String seekAndFireAtBattleship(List<String> userInput, GameBoard2 gameBoard) {
+        for (String guess : userInput) {
+            Boolean flag = false;
+            for (String[] cells : gameBoard.getAllCellsOnTheGameBoard()) {
+                for (String eachCell : cells) {
+                    if (eachCell != null) {
+                        if (guess.equals(eachCell)) {
+                            numOfHits++;
+                            numOfMisses = 0;
+                            break;
+                        } else if (flag == false) {
+                            numOfMisses++;
+                            flag = true;
+                        }
+                    }
+                }
             }
         }
 
-        if (numOfHits == gameBoard.getBattleshipLocation().length) {
-            result = "Killed all";
-        } else
-            result = "Hit " + numOfHits + " Missed " + numOfMiss;
-
-        return result;
-    }
-
-    public int guessesTarget(int input) {
-
-        return input;
-    }
-
-    public String firesAMissile(int userInput, GameBoard gameBoard) {
-        String result = "Miss";
-
-        for (int battleshipLocaton : gameBoard.getBattleshipLocation()) {
-            if (userInput == battleshipLocaton) {
-                numOfHits++;
-                result = "Hit";
-                break;
-            } else {
-                result = "Miss";
-            }
-        }
-
-        if (numOfHits == gameBoard.getBattleshipLocation().length) {
-            result = "Killed all";
-        }
         numOfGuesses++;
 
-        if (result.equals("Miss")) {
-            numOfMisses++;
-        }
+        if (numOfHits == gameBoard.countNumberOfCellsOccupied()) {
+            result = "Killed all";
+        } else
+            result = "Hit " + numOfHits + " Missed " + numOfMisses;
 
         return result;
     }
