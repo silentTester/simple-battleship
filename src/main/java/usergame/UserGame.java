@@ -42,10 +42,14 @@ public class UserGame {
 
     private void retrieveGameBoardAndExtractBattleShips(GameBoard2 gameBoard) {
         for (String[] gameBoardCells : gameBoard.getAllCellsOnTheGameBoard()) {
-            for (String cellContainingBattleShip : gameBoardCells) {
-                if (cellContainingBattleShip != null) {
-                    battleShipLocationCells.add(cellContainingBattleShip);
-                }
+            extractBattleShipsFromGameBoard(gameBoardCells);
+        }
+    }
+
+    private void extractBattleShipsFromGameBoard(String[] gameBoardCells) {
+        for (String cellContainingBattleShip : gameBoardCells) {
+            if (cellContainingBattleShip != null) {
+                battleShipLocationCells.add(cellContainingBattleShip);
             }
         }
     }
