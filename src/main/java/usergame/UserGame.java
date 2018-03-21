@@ -26,20 +26,13 @@ public class UserGame {
     }
 
     public String seekAndFireAtBattleship(List<String> userInputGuesses, GameBoard2 gameBoard) {
+        retrieveGameBoardAndExtractBattleShips(gameBoard);
 
         for (String userInput : userInputGuesses) {
-            for (String[] gameBoardCells : gameBoard.getAllCellsOnTheGameBoard()) {
-                for (String cellContainingBattleShip : gameBoardCells) {
-                    if (cellContainingBattleShip != null) {
-                        battleShipLocationCells.add(cellContainingBattleShip);
-                    }
-                }
-            }
-            findBattleShip(userInput, battleShipLocationCells);
+            findBattleShipAndKeepCountOfShots(userInput, battleShipLocationCells);
         }
 
-        if (numOfHits == gameBoard.countNumberOfCellsOccupied())
-        {
+        if (numOfHits == gameBoard.countNumberOfCellsOccupied()) {
             result = "Killed all";
         } else
             result = "Hit " + numOfHits + " Missed " + numOfMisses;
@@ -47,7 +40,17 @@ public class UserGame {
         return result;
     }
 
-    private void findBattleShip(String userInput, List<String> cellsOccupied) {
+    private void retrieveGameBoardAndExtractBattleShips(GameBoard2 gameBoard) {
+        for (String[] gameBoardCells : gameBoard.getAllCellsOnTheGameBoard()) {
+            for (String cellContainingBattleShip : gameBoardCells) {
+                if (cellContainingBattleShip != null) {
+                    battleShipLocationCells.add(cellContainingBattleShip);
+                }
+            }
+        }
+    }
+
+    private void findBattleShipAndKeepCountOfShots(String userInput, List<String> cellsOccupied) {
         if (cellsOccupied.contains(userInput)) {
             numOfHits++;
         } else

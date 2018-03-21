@@ -126,4 +126,31 @@ public class UserGameTest {
         assertEquals(3, userGame.numOfMisses);
     }
 
+    @Test
+    public void userGameInputsAndHitsMultipleBattleshipsCreated() throws Exception {
+        GameBoard2 gameBoard = new GameBoard2();
+        UserGame userGame = new UserGame();
+
+        gameBoard.setBattleshipOnTheGameboard("E4, F4, D4");
+        gameBoard.setBattleshipOnTheGameboard("C3, C4, C5");
+
+        System.out.println(gameBoard.displayGameBoard());
+
+        List<String> userInput = userGame.checkYourself("C3, D4, E4");
+        assertEquals("Hit 3 Missed 0", userGame.seekAndFireAtBattleship(userInput, gameBoard));
+
+        userInput = userGame.checkYourself("C4, C5, A0");
+        assertEquals("Hit 5 Missed 1", userGame.seekAndFireAtBattleship(userInput, gameBoard));
+
+        userInput = userGame.checkYourself("F5");
+        assertEquals("Hit 5 Missed 2", userGame.seekAndFireAtBattleship(userInput, gameBoard));
+
+        userInput = userGame.checkYourself("F4");
+        assertEquals("Killed all", userGame.seekAndFireAtBattleship(userInput, gameBoard));
+
+        assertEquals(8, userGame.numOfGuesses);
+        assertEquals(6, userGame.numOfHits);
+        assertEquals(2, userGame.numOfMisses);
+    }
+
 }
