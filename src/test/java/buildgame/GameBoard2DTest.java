@@ -11,7 +11,6 @@ public class GameBoard2DTest {
 
     @Test
     public void gameBoardContainsSomeBattleships() throws Exception {
-
         String[][] expectedGameboardWithBattleships = new String[][]{
                 {"A0", "A1", "A2", "A3", "A4", "A5"},
                 {null, null, null, "B3", "B4", "B5"},
@@ -37,7 +36,6 @@ public class GameBoard2DTest {
 
     @Test
     public void gameBoardContainsSomeBattleshipsInConsecutiveOrder() throws Exception {
-
         String[][] expectedGameboardWithBattleships = new String[][]{
                 {null, "A1", "A2", "A3", null, null},
                 {"B0", "B1", "B2", null, null, null},
@@ -64,8 +62,7 @@ public class GameBoard2DTest {
     }
 
     @Test
-    public void gameBoardContainsABattleshipInARandomLocation() throws Exception {
-
+    public void gameBoardContainsABattleshipInARandomLocationHorizontally() throws Exception {
         GameBoard2 gameBoard = new GameBoard2();
 
         String randomCoOrdinates = gameBoard.generateARandomCellForBattleship();
@@ -83,8 +80,7 @@ public class GameBoard2DTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void gameBoardFailsAsBattleshipNotSetInSequenceVertictal() throws Exception {
-
+    public void gameBoardFailsAsBattleshipNotSetInSequenceVertically() throws Exception {
         expectedException.expect(Exception.class);
         expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
 
@@ -94,8 +90,7 @@ public class GameBoard2DTest {
     }
 
     @Test
-    public void gameBoardFailsAsBattleshipNotSetInSequenceHorizontal() throws Exception {
-
+    public void gameBoardFailsAsBattleshipNotSetInSequenceHorizontally() throws Exception {
         expectedException.expect(Exception.class);
         expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
 
@@ -105,8 +100,7 @@ public class GameBoard2DTest {
     }
 
     @Test
-    public void gameBoardFailsAsBattleshipLocationIsUnavilable() throws Exception {
-
+    public void gameBoardFailsAsBattleshipLocationIsUnavailable() throws Exception {
         expectedException.expect(Exception.class);
         expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
 

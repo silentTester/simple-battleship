@@ -87,11 +87,15 @@ public class GameBoard2 {
                 }
             } //check final cell against the first & previous cell.
             else {
+                //final cell on a different row, e.g. A1, B1
                 if (rows.get(index) != rows.get(0)) {
+                    //expect cols to be the same
                     if (cols.get(index) != cols.get(0)) {
                         return false;
                     }
+                    //final cell on the same row, e.g. A1, A3
                 } else if (rows.get(index) == rows.get(0)) {
+                    //expect final cell value to be identical to the previous cell value
                     if (cols.get(index) - 1 != cols.get(index - 1)) {
                         return false;
                     }
@@ -122,7 +126,6 @@ public class GameBoard2 {
             for (int col = 0; col < gameBoard.length; col++) {
                 if (inputLocation.equals(gameBoard[row][col])) {
                     return true;
-
                 }
             }
         }
