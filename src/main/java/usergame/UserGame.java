@@ -7,10 +7,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserGame {
-    int numOfHits = 0;
-    int numOfGuesses = 0;
-    int numOfMisses = 0;
-    String result;
+    public int numOfHits = 0;
+    public int numOfGuesses = 0;
+    public int numOfMisses = 0;
+    private String result;
+    private List<String> battleShipLocationCells = new ArrayList<String>();
 
     public List<String> checkYourself(String userInput) {
         List<String> listUserInput = new ArrayList<String>();
@@ -24,37 +25,35 @@ public class UserGame {
         return listUserInput;
     }
 
-    public String guessesTarget(String userInput) {
-        return userInput;
-    }
+    public String seekAndFireAtBattleship(List<String> userInputGuesses, GameBoard2 gameBoard) {
 
-    public String seekAndFireAtBattleship(List<String> userInput, GameBoard2 gameBoard) {
-        for (String guess : userInput) {
-            Boolean flag = false;
-            for (String[] cells : gameBoard.getAllCellsOnTheGameBoard()) {
-                for (String eachCell : cells) {
-                    if (eachCell != null) {
-                        if (guess.equals(eachCell)) {
-                            numOfHits++;
-                            numOfMisses = 0;
-                            break;
-                        } else if (flag == false) {
-                            numOfMisses++;
-                            flag = true;
-                        }
+        for (String userInput : userInputGuesses) {
+            for (String[] gameBoardCells : gameBoard.getAllCellsOnTheGameBoard()) {
+                for (String cellContainingBattleShip : gameBoardCells) {
+                    if (cellContainingBattleShip != null) {
+                        battleShipLocationCells.add(cellContainingBattleShip);
                     }
                 }
             }
+            findBattleShip(userInput, battleShipLocationCells);
         }
 
-        numOfGuesses++;
-
-        if (numOfHits == gameBoard.countNumberOfCellsOccupied()) {
+        if (numOfHits == gameBoard.countNumberOfCellsOccupied())
+        {
             result = "Killed all";
         } else
             result = "Hit " + numOfHits + " Missed " + numOfMisses;
 
         return result;
+    }
+
+    private void findBattleShip(String userInput, List<String> cellsOccupied) {
+        if (cellsOccupied.contains(userInput)) {
+            numOfHits++;
+        } else
+            numOfMisses++;
+
+        numOfGuesses++;
     }
 
 }
