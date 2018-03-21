@@ -85,14 +85,14 @@ public class GameBoard2 {
                     }
 
                 }
-            } //TODO: check final cell against the first cell - should fail if 'B0, B1, B3'.
+            } //check final cell against the first & previous cell.
             else {
                 if (rows.get(index) != rows.get(0)) {
                     if (cols.get(index) != cols.get(0)) {
                         return false;
                     }
                 } else if (rows.get(index) == rows.get(0)) {
-                    if (cols.get(index) == cols.get(0)) {
+                    if (cols.get(index) - 1 != cols.get(index - 1)) {
                         return false;
                     }
                 }

@@ -83,18 +83,18 @@ public class GameBoard2DTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void gameBoardFailsAsBattleshipNotSetInSequenceOrLocationUnavailable()throws Exception {
+    public void gameBoardFailsAsBattleshipNotSetInSequenceVertictal() throws Exception {
 
         expectedException.expect(Exception.class);
         expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
 
         GameBoard2 gameBoard = new GameBoard2();
 
-        gameBoard.setBattleshipOnTheGameboard("A1, B1, B2");
+        gameBoard.setBattleshipOnTheGameboard("A1, B1, F2");
     }
 
     @Test
-    public void gameBoardFailsAsBattleshipNotSetInSeq ()throws Exception {
+    public void gameBoardFailsAsBattleshipNotSetInSequenceHorizontal() throws Exception {
 
         expectedException.expect(Exception.class);
         expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
@@ -102,7 +102,17 @@ public class GameBoard2DTest {
         GameBoard2 gameBoard = new GameBoard2();
 
         gameBoard.setBattleshipOnTheGameboard("B0, B1, B3");
-        System.out.println(gameBoard.displayGameBoard());
+    }
+
+    @Test
+    public void gameBoardFailsAsBattleshipLocationIsUnavilable() throws Exception {
+
+        expectedException.expect(Exception.class);
+        expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
+
+        GameBoard2 gameBoard = new GameBoard2();
+
+        gameBoard.setBattleshipOnTheGameboard("E3, D3, D3");
     }
 
 }
