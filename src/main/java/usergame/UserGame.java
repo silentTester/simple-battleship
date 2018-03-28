@@ -18,7 +18,7 @@ public class UserGame {
         String[] inputShipLocation = userInput.trim().split(",");
 
         for (String eachUserInput : inputShipLocation) {
-            listUserInput.add(eachUserInput.trim());
+            listUserInput.add(eachUserInput.trim().toUpperCase());
             Collections.sort(listUserInput);
         }
 

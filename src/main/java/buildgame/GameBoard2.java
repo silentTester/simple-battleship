@@ -22,14 +22,18 @@ public class GameBoard2 {
         Collections.sort(coOrdinates);
 
         if (isBattleshipInSequence(coOrdinates) && (isBattleshipCellUnoccupied(coOrdinates))) {
-            for (int index = 0; index < coOrdinates.size(); index++) {
-                String row = coOrdinates.get(index).substring(0, 1);
-                int rowPos = COLUMNS.indexOf(row);
-                int colPos = Integer.parseInt(coOrdinates.get(index).substring(1));
-                gameBoard[rowPos][colPos] = coOrdinates.get(index);
-            }
+            assignBattleshipToTheGameboard(coOrdinates);
         } else
             throw new Exception("Error setting boat - either out of sequence or location is unavailable");
+    }
+
+    private void assignBattleshipToTheGameboard(ArrayList<String> coOrdinates) {
+        for (int index = 0; index < coOrdinates.size(); index++) {
+            String row = coOrdinates.get(index).substring(0, 1);
+            int rowPos = COLUMNS.indexOf(row);
+            int colPos = Integer.parseInt(coOrdinates.get(index).substring(1));
+            gameBoard[rowPos][colPos] = coOrdinates.get(index);
+        }
     }
 
     public String[][] getAllCellsOnTheGameBoard() {
@@ -65,6 +69,7 @@ public class GameBoard2 {
             String row = inputShip.get(index).substring(0, 1);
             int rowPos = COLUMNS.indexOf(row);
             int colPos = Integer.parseInt(inputShip.get(index).substring(1));
+
             rows.add(rowPos);
             cols.add(colPos);
         }
@@ -83,7 +88,6 @@ public class GameBoard2 {
                     if (cols.get(index) == cols.get(index + 1)) {
                         return false;
                     }
-
                 }
             } //check final cell against the first & previous cell.
             else {
@@ -133,22 +137,17 @@ public class GameBoard2 {
         return false;
     }
 
-    public StringBuilder displayGameBoard() {
+    public StringBuilder displayTheGameBoard() {
         StringBuilder gameBoardOutput = new StringBuilder();
+        int counter = 0;
 
         for (String[] cells : gameBoard) {
-            gameBoardOutput.append("{");
-            for (String eachCell : cells) {
-                if (eachCell != null) {
-                    gameBoardOutput.append(String.format("\"%s\", ", eachCell));
-                } else
-                    gameBoardOutput.append(String.format("%s, ", eachCell));
-            }
-            gameBoardOutput.setLength(gameBoardOutput.length() - 2);
-            gameBoardOutput.append("},\n");
+            counter = displayColumnAxisName(gameBoardOutput, counter);
+            printGameboardCells(gameBoardOutput, cells);
         }
-        gameBoardOutput.setLength(gameBoardOutput.length() - 2);
-        gameBoardOutput.append("\n");
+
+        removeCarriageReturn(gameBoardOutput, "\n");
+        displayRowAxisName(gameBoardOutput);
 
         return gameBoardOutput;
     }
@@ -183,6 +182,40 @@ public class GameBoard2 {
         }
 
         return nosShips;
+    }
+
+    //common private methods
+    private void displayRowAxisName(StringBuilder gameBoardOutput) {
+        gameBoardOutput.append("   ");
+
+        for (int index = 0; index < ROW_MAX_SIZE; index++) {
+            gameBoardOutput.append(String.format("%s  ", index));
+        }
+    }
+
+    private int displayColumnAxisName(StringBuilder gameBoardOutput, int counter) {
+        char colAxis = (char) ('A' + counter);
+
+        gameBoardOutput.append(colAxis + " {");
+        counter++;
+
+        return counter;
+    }
+
+    private void printGameboardCells(StringBuilder gameBoardOutput, String[] cells) {
+        for (String eachCell : cells) {
+            if (eachCell != null) {
+                gameBoardOutput.append("x, ");
+            } else
+                gameBoardOutput.append("o, ");
+        }
+
+        removeCarriageReturn(gameBoardOutput, "},\n");
+    }
+
+    private void removeCarriageReturn(StringBuilder gameBoardOutput, String s) {
+        gameBoardOutput.setLength(gameBoardOutput.length() - 2);
+        gameBoardOutput.append(s);
     }
 
 }

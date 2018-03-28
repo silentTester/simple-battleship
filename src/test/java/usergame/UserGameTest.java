@@ -53,7 +53,7 @@ public class UserGameTest {
 
         gameBoard.setBattleshipOnTheGameboard(randomCoOrdinates);
 
-        System.out.println(gameBoard.displayGameBoard());
+        System.out.println(gameBoard.displayTheGameBoard());
 
         List<String> userInput = userGame.checkYourself(randomCoOrdinates);
 
@@ -134,7 +134,7 @@ public class UserGameTest {
         gameBoard.setBattleshipOnTheGameboard("E4, F4, D4");
         gameBoard.setBattleshipOnTheGameboard("C3, C4, C5");
 
-        System.out.println(gameBoard.displayGameBoard());
+        System.out.println(gameBoard.displayTheGameBoard());
 
         List<String> userInput = userGame.checkYourself("C3, D4, E4");
         assertEquals("Hit 3 Missed 0", userGame.seekAndFireAtBattleship(userInput, gameBoard));
