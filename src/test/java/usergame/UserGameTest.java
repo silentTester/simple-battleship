@@ -46,10 +46,10 @@ public class UserGameTest {
     }
 
     @Test
-    public void userGameInputsAndHitsABattleshipSetRandomly() throws Exception {
+    public void userGameInputsAndHitsABattleshipSetRandomLocationHoritzontally() throws Exception {
         GameBoard2 gameBoard = new GameBoard2();
         UserGame userGame = new UserGame();
-        String randomCoOrdinates = gameBoard.generateARandomCellForBattleship();
+        String randomCoOrdinates = gameBoard.generateARandomCellForBattleshipHorizontally();
 
         gameBoard.setBattleshipOnTheGameboard(randomCoOrdinates);
 

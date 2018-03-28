@@ -36,7 +36,7 @@ public class GameBoard2 {
         return gameBoard;
     }
 
-    public String generateARandomCellForBattleship() {
+    public String generateARandomCellForBattleshipHorizontally() {
         StringBuilder coOrdinates = new StringBuilder();
 
         Random rnd = new Random();

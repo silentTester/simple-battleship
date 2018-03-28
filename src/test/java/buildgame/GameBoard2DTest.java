@@ -66,7 +66,7 @@ public class GameBoard2DTest {
     public void gameBoardContainsABattleshipInARandomLocationHorizontally() throws Exception {
         GameBoard2 gameBoard = new GameBoard2();
 
-        String randomCoOrdinates = gameBoard.generateARandomCellForBattleship();
+        String randomCoOrdinates = gameBoard.generateARandomCellForBattleshipHorizontally();
 
         gameBoard.setBattleshipOnTheGameboard(randomCoOrdinates);
 
