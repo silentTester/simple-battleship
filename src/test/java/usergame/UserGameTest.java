@@ -49,7 +49,7 @@ public class UserGameTest {
     public void userGameInputsAndHitsABattleshipSetRandomLocationHoritzontally() throws Exception {
         GameBoard2 gameBoard = new GameBoard2();
         UserGame userGame = new UserGame();
-        String randomCoOrdinates = gameBoard.generateARandomCellForBattleshipHorizontally();
+        String randomCoOrdinates = gameBoard.generateARandomCellForBattleship('H');
 
         gameBoard.setBattleshipOnTheGameboard(randomCoOrdinates);
 

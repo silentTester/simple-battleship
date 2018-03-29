@@ -64,10 +64,25 @@ public class GameBoard2DTest {
 
     @Test
     public void gameBoardContainsABattleshipInARandomLocationHorizontally() throws Exception {
+        String randomCoOrdinates;
         GameBoard2 gameBoard = new GameBoard2();
 
-        String randomCoOrdinates = gameBoard.generateARandomCellForBattleshipHorizontally();
+        randomCoOrdinates = gameBoard.generateARandomCellForBattleship('H');
+        gameBoard.setBattleshipOnTheGameboard(randomCoOrdinates);
 
+        System.out.println(gameBoard.displayTheGameBoard());
+
+        assertEquals(6, gameBoard.getAllCellsOnTheGameBoard().length);
+        assertEquals(3, gameBoard.countNumberOfCellsOccupied());
+        assertEquals(1, gameBoard.countNumberOfBattleships());
+    }
+
+    @Test
+    public void gameBoardContainsABattleshipInARandomLocationVertically() throws Exception {
+        String randomCoOrdinates;
+        GameBoard2 gameBoard = new GameBoard2();
+
+        randomCoOrdinates = gameBoard.generateARandomCellForBattleship('V');
         gameBoard.setBattleshipOnTheGameboard(randomCoOrdinates);
 
         System.out.println(gameBoard.displayTheGameBoard());

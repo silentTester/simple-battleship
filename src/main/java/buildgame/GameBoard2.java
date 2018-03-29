@@ -36,25 +36,35 @@ public class GameBoard2 {
         return gameBoard;
     }
 
-    public String generateARandomCellForBattleshipHorizontally() {
-        StringBuilder coOrdinates = new StringBuilder();
-
+    public String generateARandomCellForBattleship(char randomType) {
         Random rnd = new Random();
-        int randomColPos = rnd.nextInt(COL_MAX_SIZE);
-        int randomRowPos = rnd.nextInt(ROW_MAX_SIZE);
+        StringBuilder randomCoordinates = new StringBuilder();
+        int randomColPosition = rnd.nextInt(COL_MAX_SIZE);
+        int randomRowPosition = rnd.nextInt(ROW_MAX_SIZE);
+        int randomPosition = 0;
         String cellStartPos = "";
 
-        for (int index = 0; index < SHIP_SIZE; index++) {
-            if (randomRowPos >= 4) {
-                randomRowPos = randomRowPos - 2;
-            } else
-                randomRowPos++;
+        //vertical
+        if (randomType == 'V')
+            randomPosition = randomColPosition;
+        else if (randomType == 'H')
+            randomPosition = randomRowPosition;
 
-            cellStartPos = ((char) (randomColPos + 'A' - 0)) + "" + randomRowPos;
-            coOrdinates.append(cellStartPos).append(",");
+        for (int index = 0; index < SHIP_SIZE; index++) {
+            if (randomPosition >= 4) {
+                randomPosition = randomPosition - 2;
+            } else
+                randomPosition++;
+
+            if (randomType == 'V') {
+                cellStartPos = ((char) (randomPosition + 'A' - 0)) + "" + randomColPosition;
+            } else if (randomType == 'H')
+                cellStartPos = ((char) (randomColPosition + 'A' - 0)) + "" + randomPosition;
+
+            randomCoordinates.append(cellStartPos).append(",");
         }
 
-        return coOrdinates.toString();
+        return randomCoordinates.toString();
     }
 
     public boolean isPartOfTheBattleshipInCell(String inputLocation) {
