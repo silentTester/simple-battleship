@@ -40,7 +40,7 @@ public class GameBoard2 {
         int randomRowPos = rnd.nextInt(ROW_MAX_SIZE);
         String cellStartPos = "";
 
-        for (int index = 0; index < 3; index++) {
+        for (int index = 0; index < SHIP_SIZE; index++) {
             if (randomRowPos >= 4) {
                 randomRowPos = randomRowPos - 2;
             } else
@@ -53,10 +53,10 @@ public class GameBoard2 {
         return coOrdinates.toString();
     }
 
-    public boolean isBattleshipLocatedInCell(String inputLocation) {
-        for (int row = 0; row < getAllCellsOnTheGameBoard().length; row++) {
-            for (int col = 0; col < getAllCellsOnTheGameBoard().length; col++) {
-                if (inputLocation.equals(getAllCellsOnTheGameBoard()[row][col])) {
+    public boolean isPartOfTheBattleshipInCell(String inputLocation) {
+        for (String[] allCells : gameBoard) {
+            for (String eachCell : allCells) {
+                if (inputLocation.equals(eachCell)) {
                     return true;
                 }
             }
@@ -82,8 +82,8 @@ public class GameBoard2 {
     public int countNumberOfCellsOccupied() {
         int nosCells = 0;
 
-        for (String[] cells : gameBoard) {
-            for (String eachCell : cells) {
+        for (String[] allCells : gameBoard) {
+            for (String eachCell : allCells) {
                 if (eachCell != null) {
                     nosCells++;
                 }
@@ -103,10 +103,19 @@ public class GameBoard2 {
 
     //common private methods
     private void assignBattleshipToTheGameboard(ArrayList<String> coOrdinates) {
+        extractRowAndColPositions(coOrdinates);
+    }
+
+    private void extractRowAndColPositions(ArrayList<String> coOrdinates) {
+        String row;
+        int rowPos;
+        int colPos;
+
         for (int index = 0; index < coOrdinates.size(); index++) {
-            String row = coOrdinates.get(index).substring(0, 1);
-            int rowPos = COLUMNS.indexOf(row);
-            int colPos = Integer.parseInt(coOrdinates.get(index).substring(1));
+            row = coOrdinates.get(index).substring(0, 1);
+            rowPos = COLUMNS.indexOf(row);
+            colPos = Integer.parseInt(coOrdinates.get(index).substring(1));
+
             gameBoard[rowPos][colPos] = coOrdinates.get(index);
         }
     }
@@ -167,6 +176,10 @@ public class GameBoard2 {
     }
 
     private void extractAndStoreColumnRowValues(ArrayList<String> inputShip, ArrayList<Integer> cols, ArrayList<Integer> rows) {
+        storeRowsAndCols(inputShip, cols, rows);
+    }
+
+    private void storeRowsAndCols(ArrayList<String> inputShip, ArrayList<Integer> cols, ArrayList<Integer> rows) {
         for (int index = 0; index < inputShip.size(); index++) {
             String row = inputShip.get(index).substring(0, 1);
             int rowPos = COLUMNS.indexOf(row);
@@ -179,10 +192,9 @@ public class GameBoard2 {
 
     private boolean isBattleshipCellUnoccupied(ArrayList<String> shipLocation) {
         for (String shipInput : shipLocation) {
-            for (int row = 0; row < gameBoard.length; row++) {
-                for (int col = 0; col < gameBoard.length; col++) {
-                    if (shipInput.equals(gameBoard[row][col])) {
-                        System.out.println(shipInput + " is occupied " + gameBoard[row][col]);
+            for (String[] allCells : gameBoard) {
+                for (String eachCell : allCells) {
+                    if (shipInput.equals(eachCell)) {
                         return false;
                     }
                 }

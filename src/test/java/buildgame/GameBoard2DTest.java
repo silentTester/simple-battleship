@@ -28,8 +28,8 @@ public class GameBoard2DTest {
         System.out.println(gameBoard.displayTheGameBoard());
 
         assertArrayEquals(expectedGameboardWithBattleships, gameBoard.getAllCellsOnTheGameBoard());
-        assertTrue(gameBoard.isBattleshipLocatedInCell("A5"));
-        assertTrue(gameBoard.isBattleshipLocatedInCell("B5"));
+        assertTrue(gameBoard.isPartOfTheBattleshipInCell("A5"));
+        assertTrue(gameBoard.isPartOfTheBattleshipInCell("B5"));
         assertEquals(6, gameBoard.getAllCellsOnTheGameBoard().length);
         assertEquals(9, gameBoard.countNumberOfCellsOccupied());
         assertEquals(3, gameBoard.countNumberOfBattleships());
@@ -56,7 +56,7 @@ public class GameBoard2DTest {
         System.out.println(gameBoard.displayTheGameBoard());
 
         assertArrayEquals(expectedGameboardWithBattleships, gameBoard.getAllCellsOnTheGameBoard());
-        assertTrue(gameBoard.isBattleshipLocatedInCell("A2"));
+        assertTrue(gameBoard.isPartOfTheBattleshipInCell("A2"));
         assertEquals(6, gameBoard.getAllCellsOnTheGameBoard().length);
         assertEquals(12, gameBoard.countNumberOfCellsOccupied());
         assertEquals(4, gameBoard.countNumberOfBattleships());
@@ -106,8 +106,9 @@ public class GameBoard2DTest {
         expectedException.expectMessage("Error setting boat - either out of sequence or location is unavailable");
 
         GameBoard2 gameBoard = new GameBoard2();
+        gameBoard.setBattleshipOnTheGameboard("C3, D3, E3");
 
-        gameBoard.setBattleshipOnTheGameboard("E3, D3, D3");
+        gameBoard.setBattleshipOnTheGameboard("C1, C2, C3");
     }
 
 }
