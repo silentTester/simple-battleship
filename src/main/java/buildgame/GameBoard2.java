@@ -21,7 +21,7 @@ public class GameBoard2 {
         ArrayList<String> coOrdinates = new ArrayList<String>();
 
         for (String str : inputShip) {
-            coOrdinates.add(str.trim());
+            coOrdinates.add(str.trim().toUpperCase());
         }
 
         Collections.sort(coOrdinates);
@@ -58,13 +58,7 @@ public class GameBoard2 {
     }
 
     public boolean isPartOfTheBattleshipInCell(String inputLocation) {
-        for (String[] allCells : gameBoard) {
-            for (String eachCell : allCells) {
-                if (inputLocation.equals(eachCell)) {
-                    return true;
-                }
-            }
-        }
+        if (isTheGameboardCellOccupiedWithTheCoordinate(inputLocation)) return true;
 
         return false;
     }
@@ -182,18 +176,23 @@ public class GameBoard2 {
         return false;
     }
 
-    private boolean isBattleshipCellUnoccupied(ArrayList<String> shipLocation) {
-        for (String shipInput : shipLocation) {
-            for (String[] allCells : gameBoard) {
-                for (String eachCell : allCells) {
-                    if (shipInput.equals(eachCell)) {
-                        return false;
-                    }
-                }
-            }
+    private boolean isBattleshipCellUnoccupied(ArrayList<String> inputCoordinates) {
+        for (String eachCoordinate : inputCoordinates) {
+            if (isTheGameboardCellOccupiedWithTheCoordinate(eachCoordinate)) return false;
         }
 
         return true;
+    }
+
+    private boolean isTheGameboardCellOccupiedWithTheCoordinate(String eachCoordinate) {
+        for (String[] allCells : gameBoard) {
+            for (String eachCell : allCells) {
+                if (eachCoordinate.equals(eachCell)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void displayRowAxisName(StringBuilder gameBoardOutput) {
