@@ -12,6 +12,10 @@ public class GameBoard2 {
     private final int SHIP_SIZE = 3;
     private String[][] gameBoard = new String[ROW_MAX_SIZE][COL_MAX_SIZE];
 
+    String row;
+    int rowPos;
+    int colPos;
+
     public void setBattleshipOnTheGameboard(String shipLocation) throws Exception {
         String[] inputShip = shipLocation.trim().split(",");
         ArrayList<String> coOrdinates = new ArrayList<String>();
@@ -23,7 +27,7 @@ public class GameBoard2 {
         Collections.sort(coOrdinates);
 
         if (isBattleshipInSequence(coOrdinates) && (isBattleshipCellUnoccupied(coOrdinates))) {
-            assignBattleshipToTheGameboard(coOrdinates);
+            assignBattleshipToTheGameboardBasedOn(coOrdinates);
         } else
             throw new Exception("Error setting boat - either out of sequence or location is unavailable");
     }
@@ -102,22 +106,21 @@ public class GameBoard2 {
     }
 
     //common private methods
-    private void assignBattleshipToTheGameboard(ArrayList<String> coOrdinates) {
-        extractRowAndColPositions(coOrdinates);
+    private void assignBattleshipToTheGameboardBasedOn(ArrayList<String> coOrdinates) {
+        for (String eachCoordinate : coOrdinates) {
+            extractRowAndColPositionsFrom(eachCoordinate);
+            placeTheBattleshipOnTheGameboard(rowPos, colPos, eachCoordinate);
+        }
     }
 
-    private void extractRowAndColPositions(ArrayList<String> coOrdinates) {
-        String row;
-        int rowPos;
-        int colPos;
+    private void extractRowAndColPositionsFrom(String eachCoOrdinate) {
+        row = eachCoOrdinate.substring(0, 1);
+        rowPos = COLUMNS.indexOf(row);
+        colPos = Integer.parseInt(eachCoOrdinate.substring(1));
+    }
 
-        for (int index = 0; index < coOrdinates.size(); index++) {
-            row = coOrdinates.get(index).substring(0, 1);
-            rowPos = COLUMNS.indexOf(row);
-            colPos = Integer.parseInt(coOrdinates.get(index).substring(1));
-
-            gameBoard[rowPos][colPos] = coOrdinates.get(index);
-        }
+    private void placeTheBattleshipOnTheGameboard(int rowPos, int colPos, String eachCoordinate) {
+        gameBoard[rowPos][colPos] = eachCoordinate;
     }
 
     private boolean isBattleshipInSequence(ArrayList<String> inputShip) {
