@@ -12,9 +12,9 @@ public class GameBoard2 {
     private final int SHIP_SIZE = 3;
     private String[][] gameBoard = new String[ROW_MAX_SIZE][COL_MAX_SIZE];
 
-    String row;
-    int rowPos;
-    int colPos;
+    private String row;
+    private int rowPos;
+    private int colPos;
 
     public void setBattleshipOnTheGameboard(String shipLocation) throws Exception {
         String[] inputShip = shipLocation.trim().split(",");
@@ -123,36 +123,40 @@ public class GameBoard2 {
         gameBoard[rowPos][colPos] = eachCoordinate;
     }
 
-    private boolean isBattleshipInSequence(ArrayList<String> inputShip) {
-        ArrayList<Integer> cols = new ArrayList<Integer>();
-        ArrayList<Integer> rows = new ArrayList<Integer>();
+    private boolean isBattleshipInSequence(ArrayList<String> coOrdinates) {
+        ArrayList<Integer> colsList = new ArrayList<Integer>();
+        ArrayList<Integer> rowsList = new ArrayList<Integer>();
 
-        extractAndStoreColumnRowValues(inputShip, cols, rows);
+        for (String eachCoordinate : coOrdinates) {
+            extractRowAndColPositionsFrom(eachCoordinate);
+            rowsList.add(rowPos);
+            colsList.add(colPos);
+        }
 
-        for (int index = 0; index < rows.size(); index++) {
-            if (index < rows.size() - 1) {
+        for (int index = 0; index < rowsList.size(); index++) {
+            if (index < rowsList.size() - 1) {
                 //check values of cells if they can be stored in sequence
-                if (isConsequentiveCellsInSequence(cols, rows, index)) return false;
+                if (isConsecutiveCellsInSequence(colsList, rowsList, index)) return false;
             } //check final cell against the first & previous cell.
             else {
-                if (isFinalCellInSequence(cols, rows, index)) return false;
+                if (isFinalCellInSequence(colsList, rowsList, index)) return false;
             }
         }
 
         return true;
     }
 
-    private boolean isConsequentiveCellsInSequence(ArrayList<Integer> cols, ArrayList<Integer> rows, int index) {
+    private boolean isConsecutiveCellsInSequence(ArrayList<Integer> colsList, ArrayList<Integer> rowsList, int index) {
         //if battleship cell is assigned in different rows e.g. A1, B1
-        if (rows.get(index) != rows.get(index + 1)) {
+        if (rowsList.get(index) != rowsList.get(index + 1)) {
             //expected column values to be identical, i.e. 1 from example above.
-            if (cols.get(index) != cols.get(index + 1)) {
+            if (colsList.get(index) != colsList.get(index + 1)) {
                 return true;
             }
             //if battleship cell is assigned in the same rows e.g. A1, A2
-        } else if (rows.get(index) == rows.get(index + 1)) {
+        } else if (rowsList.get(index) == rowsList.get(index + 1)) {
             //expect cols to be different, i.e 1 & 2.
-            if (cols.get(index) == cols.get(index + 1)) {
+            if (colsList.get(index) == colsList.get(index + 1)) {
                 return true;
             }
         }
@@ -160,37 +164,22 @@ public class GameBoard2 {
         return false;
     }
 
-    private boolean isFinalCellInSequence(ArrayList<Integer> cols, ArrayList<Integer> rows, int index) {
+    private boolean isFinalCellInSequence(ArrayList<Integer> colsList, ArrayList<Integer> rowsList, int index) {
         //if battleship final cell is assigned on a different row, e.g. A1, B1, C1
-        if (rows.get(index) != rows.get(0)) {
+        if (rowsList.get(index) != rowsList.get(0)) {
             //expected final column value to be identical to the first, i.e. 1 from example above.
-            if (cols.get(index) != cols.get(0)) {
+            if (colsList.get(index) != colsList.get(0)) {
                 return true;
             }
             //if battleship final cell is assigned in the same rows e.g. A1, A2, A3
-        } else if (rows.get(index) == rows.get(0)) {
+        } else if (rowsList.get(index) == rowsList.get(0)) {
             //checks previous column value to be in seq.
-            if (cols.get(index) - 1 != cols.get(index - 1)) {
+            if (colsList.get(index) - 1 != colsList.get(index - 1)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    private void extractAndStoreColumnRowValues(ArrayList<String> inputShip, ArrayList<Integer> cols, ArrayList<Integer> rows) {
-        storeRowsAndCols(inputShip, cols, rows);
-    }
-
-    private void storeRowsAndCols(ArrayList<String> inputShip, ArrayList<Integer> cols, ArrayList<Integer> rows) {
-        for (int index = 0; index < inputShip.size(); index++) {
-            String row = inputShip.get(index).substring(0, 1);
-            int rowPos = COLUMNS.indexOf(row);
-            int colPos = Integer.parseInt(inputShip.get(index).substring(1));
-
-            rows.add(rowPos);
-            cols.add(colPos);
-        }
     }
 
     private boolean isBattleshipCellUnoccupied(ArrayList<String> shipLocation) {
