@@ -1,6 +1,6 @@
 package usergame;
 
-import buildgame.GameBoard2;
+import buildgame.GameBoardUsing2DArray;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,7 @@ public class UserGame {
         return listUserInput;
     }
 
-    public String seekAndFireAtBattleship(List<String> userInputGuesses, GameBoard2 gameBoard) {
+    public String seekAndFireAtBattleship(List<String> userInputGuesses, GameBoardUsing2DArray gameBoard) {
         retrieveGameBoardAndExtractBattleShips(gameBoard);
 
         for (String userInput : userInputGuesses) {
@@ -40,7 +40,7 @@ public class UserGame {
         return result;
     }
 
-    private void retrieveGameBoardAndExtractBattleShips(GameBoard2 gameBoard) {
+    private void retrieveGameBoardAndExtractBattleShips(GameBoardUsing2DArray gameBoard) {
         for (String[] gameBoardCells : gameBoard.getAllCellsOnTheGameBoard()) {
             extractBattleShipsFromGameBoard(gameBoardCells);
         }

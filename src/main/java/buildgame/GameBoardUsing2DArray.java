@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class GameBoard2 {
+public class GameBoardUsing2DArray {
 
     private final String COLUMNS = "ABCDEFG";
     private final int ROW_MAX_SIZE = 6;

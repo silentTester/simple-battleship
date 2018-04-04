@@ -1,6 +1,6 @@
 package usergame;
 
-import buildgame.GameBoard2;
+import buildgame.GameBoardUsing2DArray;
 import org.junit.Test;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public class UserGameTest {
 
     @Test
     public void userGameInputsDirectHitAndKilledAll() throws Exception {
-        GameBoard2 gameBoard = new GameBoard2();
+        GameBoardUsing2DArray gameBoard = new GameBoardUsing2DArray();
         UserGame userGame = new UserGame();
 
         gameBoard.setBattleshipOnTheGameboard("A1, A2, A3");
@@ -23,7 +23,7 @@ public class UserGameTest {
 
     @Test
     public void userGameInputsHitsAndMissesABattleship() throws Exception {
-        GameBoard2 gameBoard = new GameBoard2();
+        GameBoardUsing2DArray gameBoard = new GameBoardUsing2DArray();
         UserGame userGame = new UserGame();
 
         gameBoard.setBattleshipOnTheGameboard("A1, A2, A0");
@@ -35,7 +35,7 @@ public class UserGameTest {
 
     @Test
     public void userGameInputsAndTotallyMissedABattleship() throws Exception {
-        GameBoard2 gameBoard = new GameBoard2();
+        GameBoardUsing2DArray gameBoard = new GameBoardUsing2DArray();
         UserGame userGame = new UserGame();
 
         gameBoard.setBattleshipOnTheGameboard("B1, B2, B3");
@@ -47,7 +47,7 @@ public class UserGameTest {
 
     @Test
     public void userGameInputsAndHitsABattleshipSetRandomLocationHoritzontally() throws Exception {
-        GameBoard2 gameBoard = new GameBoard2();
+        GameBoardUsing2DArray gameBoard = new GameBoardUsing2DArray();
         UserGame userGame = new UserGame();
         String randomCoOrdinates = gameBoard.generateARandomCellForBattleship('H');
 
@@ -62,7 +62,7 @@ public class UserGameTest {
 
     @Test
     public void userGameInputsAnIndividualCellHitsAndMissABattleship() throws Exception {
-        GameBoard2 gameBoard = new GameBoard2();
+        GameBoardUsing2DArray gameBoard = new GameBoardUsing2DArray();
         UserGame userGame = new UserGame();
 
         gameBoard.setBattleshipOnTheGameboard("D4, E4, F4");
@@ -86,7 +86,7 @@ public class UserGameTest {
 
     @Test
     public void userGameInputsAnIndividualCellHitsAndKillsABattleship() throws Exception {
-        GameBoard2 gameBoard = new GameBoard2();
+        GameBoardUsing2DArray gameBoard = new GameBoardUsing2DArray();
         UserGame userGame = new UserGame();
 
         gameBoard.setBattleshipOnTheGameboard("F1, F2, F3");
@@ -107,7 +107,7 @@ public class UserGameTest {
 
     @Test
     public void userGameInputsACharacterAndMissesBattleship() throws Exception {
-        GameBoard2 gameBoard = new GameBoard2();
+        GameBoardUsing2DArray gameBoard = new GameBoardUsing2DArray();
         UserGame userGame = new UserGame();
 
         gameBoard.setBattleshipOnTheGameboard("E4, F4, D4");
@@ -128,7 +128,7 @@ public class UserGameTest {
 
     @Test
     public void userGameInputsAndHitsMultipleBattleshipsCreated() throws Exception {
-        GameBoard2 gameBoard = new GameBoard2();
+        GameBoardUsing2DArray gameBoard = new GameBoardUsing2DArray();
         UserGame userGame = new UserGame();
 
         gameBoard.setBattleshipOnTheGameboard("E4, F4, D4");
